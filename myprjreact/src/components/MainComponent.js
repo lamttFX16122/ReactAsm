@@ -3,7 +3,8 @@ import { DISHES } from "../shared/dishes";
 import  React,{ Component } from "react";
 import MenuEx from "./MenuComponentEx1";
 import Dishdetail from "./DishdetailComponent";
-
+import Header from "./HeaderComponent";
+import Footer from "./FooterComponent";
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -23,11 +24,7 @@ class Main extends Component {
     return (
       <div>
         <div className="App">
-          <Navbar dark color="primary">
-            <div className="container">
-              <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
-            </div>
-          </Navbar>
+         <Header></Header>
         </div>
 
         <div className="container">
@@ -37,6 +34,7 @@ class Main extends Component {
           ></MenuEx>
           <Dishdetail chooseDish={this.state.dishes.filter((dish)=>dish.id===this.state.choosedishes)[0]}></Dishdetail>
         </div>
+<Footer></Footer>
       </div>
     );
   }

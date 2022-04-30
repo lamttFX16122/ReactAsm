@@ -36,3 +36,11 @@
         transform: rotate(360deg);
     }
 }
+
+footer {
+    background-color: #3e4551
+}
+
+.setColor-Footer-2 {
+    background-color: rgba(0, 0, 0, 0.2)
+}
