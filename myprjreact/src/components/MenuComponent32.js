@@ -8,16 +8,10 @@ import {
   CardTitle,
 } from "reactstrap";
 class MenuComponent32 extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedDish: null,
-    };
-  }
-  changeState=dish=>{
-    this.setState({
-        selectedDish:dish
-    });
+
+changeState=dishID=>{
+  console.log(dishID.id) 
+    this.props.onReceiveDish(dishID)
   };
   renderDishEventOnclick = (dish) => {
     if (dish != null) {
@@ -50,10 +44,9 @@ class MenuComponent32 extends Component {
     return (
       <div className="container">
         <div className="row">{menu}</div>
-        {
-          /* Change state */
+        {/* {
           this.renderDishEventOnclick(this.state.selectedDish)
-        }
+        } */}
         <div className="row">
           <div className="col-12 col-md-5 m-1">{}</div>
         </div>

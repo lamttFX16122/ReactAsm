@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import moment from "moment";
 import {
   Card,
   CardImg,
@@ -16,7 +17,7 @@ class Dishdetail extends Component {
         return (
           <CardBody key={value.id}>
             <CardText>{value.comment}</CardText>
-            <CardText>{"--" + value.author + " ," + value.date}</CardText>
+            <CardText>{"--" + value.author + ", " + moment(value.date).format("MMM Do, YYYY")}</CardText>
           </CardBody>
         );
       });
