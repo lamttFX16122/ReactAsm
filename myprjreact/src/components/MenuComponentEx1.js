@@ -10,7 +10,7 @@ import {
 
 function RenderMenuItem({ dish, onReceiveDish }) {
   return (
-    <Card className="m-5" onClick={() => onReceiveDish(dish.id)}>
+    <Card className="m-5"> {/*onClick={() => onReceiveDish(dish.id)}>*/}
       <CardImg width="100%" src={dish.image} alt={dish.name} />
       <CardImgOverlay>
         <CardTitle>
