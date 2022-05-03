@@ -4,21 +4,23 @@ import { DISHES } from "../shared/dishes";
 import {COMMENTS} from "../shared/comments";
 import {LEADERS} from "../shared/leaders";
 import {PROMOTIONS} from "../shared/promotions";
+// import {ABOUT} from "../shared/AboutComponent"
 import MenuEx from "./MenuComponentEx1";
 import Dishdetail from "./DishdetailComponent";
 import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
 import Home from "./HomeComponent";
 import Contact from "./ContactComponent";
+import About from "./AboutComponent";
 class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
       dishes: DISHES,
-      // choosedishes: null,
       comments:COMMENTS,
       promotions:PROMOTIONS,
       leaders:LEADERS
+      // about:ABOUT
     };
   }
   chooseDish = (dishID) => {
@@ -55,6 +57,7 @@ class Main extends Component {
         <div className="container">
           <Switch>
             <Route path="/home" component={Homepage}></Route>
+            <Route path="/about" component={()=>(<About leaders={this.state.leaders}></About>)}></Route>
             <Route
               exact
               path="/menu"
