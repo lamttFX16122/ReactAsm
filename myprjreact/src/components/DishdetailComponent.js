@@ -72,6 +72,9 @@ const Dishdetail = (props) => {
             {props.chooseDish.name}
           </BreadcrumbItem>
         </Breadcrumb>
+        <div className="col-12">
+          <h4>Detail</h4>
+        </div>
       </div>
       <div className="row">
           <div className="col-lg-6 col-md-6 col-xs-12 col-sm-12">
