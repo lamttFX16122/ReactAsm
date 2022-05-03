@@ -15,7 +15,7 @@ class Main extends Component {
     super(props);
     this.state = {
       dishes: DISHES,
-      choosedishes: null,
+      // choosedishes: null,
       comments:COMMENTS,
       promotions:PROMOTIONS,
       leaders:LEADERS
@@ -28,7 +28,16 @@ class Main extends Component {
       });
     }
   };
+  
   render() {
+    const DishWithID=({match})=>{
+      console.log(this.state.comments.filter((comm)=>comm.dishId === parseInt(match.params.dishId))[0])
+      return(
+        <Dishdetail chooseDish={this.state.dishes.filter((dish) => dish.id === parseInt(match.params.dishId))[0]}
+                    comment={this.state.comments.filter((comm)=>comm.dishId === parseInt(match.params.dishId))}
+        ></Dishdetail>
+      )
+    }
     const Homepage = () => {
       return(
         <Home dish={this.state.dishes.filter((dish)=>dish.featured)[0]}
@@ -55,16 +64,10 @@ class Main extends Component {
                   onReceiveDish={this.chooseDish}
                 ></MenuEx>
               )}></Route>
+              <Route exact path="/menu/:dishId" component={DishWithID}></Route>
               <Route path="/contact" component={Contact}></Route>
             <Redirect to="/home"></Redirect>
           </Switch>
-          <Dishdetail
-            chooseDish={
-              this.state.dishes.filter(
-                (dish) => dish.id === this.state.choosedishes
-              )[0]
-            }
-          ></Dishdetail>
         </div>
         <Footer></Footer>
       </div>

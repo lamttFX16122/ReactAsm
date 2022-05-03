@@ -1,22 +1,24 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   Card,
   CardImg,
   CardImgOverlay,
-  CardText,
-  CardBody,
   CardTitle,
+  Breadcrumb,
+  BreadcrumbItem
 } from "reactstrap";
-
-function RenderMenuItem({ dish, onReceiveDish }) {
+import {Link} from "react-router-dom";
+function RenderMenuItem({ dish }) {
   return (
-    <Card className="m-5"> {/*onClick={() => onReceiveDish(dish.id)}>*/}
+    <Card className="m-5">
+      <Link to={`/menu/${dish.id}`}>
       <CardImg width="100%" src={dish.image} alt={dish.name} />
       <CardImgOverlay>
         <CardTitle>
           <h5>{dish.name}</h5>
         </CardTitle>
       </CardImgOverlay>
+      </Link>
     </Card>
   );
 }
@@ -27,12 +29,28 @@ const MenuEx = (props) => {
       <div key={value.id} className="col-lg-6 col-md-6 col-xs-12 col-sm-12">
         <RenderMenuItem
           dish={value}
-          onReceiveDish={props.onReceiveDish}
         ></RenderMenuItem>
       </div>
     );
   });
-  return <div className="row">{menu}</div>;
+  return (
+    <div className="container">
+      <div className="row">
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <Link to="/home">Home</Link>
+          </BreadcrumbItem>
+          <BreadcrumbItem active>
+            Menu
+          </BreadcrumbItem>
+        </Breadcrumb>
+      </div>
+      <div className="col-12">
+        <h3>Menu</h3>
+      </div>
+      <div className="row">{menu}</div>
+    </div>
+  );
 };
 
 export default MenuEx;
