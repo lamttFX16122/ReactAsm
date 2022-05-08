@@ -7,7 +7,7 @@ import {
   Collapse,
   NavItem,
 } from "reactstrap";
-import { NavLink } from "react-router-dom";
+ import { NavLink } from "react-router-dom";
 // import NavbarToggle from "react-bootstrap/esm/NavbarToggle";
 class Header extends Component {
   constructor(props) {
