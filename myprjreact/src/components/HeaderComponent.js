@@ -34,7 +34,7 @@ class Header extends Component {
     this.setState({
       isModal: !this.state.isModal
     });
-  }
+  } 
   onSubmit=(e)=>{
     this.toggleModal();
     e.preventDefault();
