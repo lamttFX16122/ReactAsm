@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
+import {Control, LocalForm,Error } from 'react-redux-form'
 class Contact extends Component {
   constructor(props) {
     super(props);
@@ -28,10 +29,11 @@ class Contact extends Component {
       [name]: value,
     });
   };
-  onSubmit = (e) => {
-    e.preventDefault();
-    console.log("Current state is: " + JSON.stringify(this.state));
-    alert("Current state is: " + JSON.stringify(this.state));
+  onSubmit = (values) => {
+    // e.preventDefault();
+    console.log("Current state is: " + JSON.stringify(values));
+    alert("Current state is: " + JSON.stringify(values));
+    console.log(values)
   };
   onBlur = (field) => (e) => {
     this.setState({
@@ -138,12 +140,13 @@ class Contact extends Component {
             </div>
           </div>
         </div>
-        {/* Form */}
+        {/* Form */} 
+
         <div className="container w-75">
           <div className="row mt-5 mb-5">
             <hr />
             <h1>Send us Your Feedback</h1>
-            <form onSubmit={this.onSubmit}>
+            {/* <form onSubmit={this.onSubmit}>
               <div className="mb-3">
                 <label className="form-label">First Name</label>
                 <input
@@ -241,7 +244,80 @@ class Contact extends Component {
               <button type="submit" className="btn btn-primary">
                 Send Feedback
               </button>
-            </form>
+            </form> */}
+             <LocalForm onSubmit={(values)=>{this.onSubmit(values)}}>
+              <div className="mb-3">
+                <label className="form-label">First Name</label>
+                <Control.text
+                model=".firstName" 
+                  className="form-control"
+                  name="firstName"                 
+                />
+                <div className="invalid-feedback">{err.firstName}</div>
+
+                <label className="form-label">Last Name</label>
+                <Control.text
+                  model=".lastName"
+                  className="form-control"
+                  name="lastName"               
+                />
+                <div className="invalid-feedback">{err.lastName}</div>
+                <label className="form-label">Contact Tel</label>
+                <Control.text
+                  model=".contactTel"
+                  className="form-control"
+                  name="contactTel"
+                />
+                <div className="invalid-feedback">{err.contactTel}</div>
+                <label className="form-label">Email</label>
+                <Control.text
+                  model=".email"
+                  className="form-control"
+                  name="email"
+                />
+                <div className="invalid-feedback">{err.email}</div>
+              </div>
+              <div className="row">
+                <div className="col-10">
+                  <div className="mb-3 form-check">
+                    <Control.checkbox
+                      model=".ckbContact"
+                      className="form-check-input"
+                      name="ckbContact"
+                      value={this.state.ckbContact}
+                    />
+                    <label className="form-check-label">
+                      May we contact you?
+                    </label>
+                  </div>
+                </div>
+                <div className="col-2">
+                  <Control.select
+                    model=".sltTel"
+                    className="form-select"
+                    aria-label="Default select example"
+                    name="sltTel"
+                  >
+                    <option value={"Tel."}>Tel.</option>
+                    <option value={"Email"}>Email</option>
+                  </Control.select>
+                </div>
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label">Your Feedback</label>
+                <Control.textarea
+                  model=".feedBack"
+                  className="form-control"
+                  rows="3"
+                  name="feedBack"
+                />
+              </div>
+
+              <button type="submit" className="btn btn-primary">
+                Send Feedback
+              </button>
+            </LocalForm>
           </div>
         </div>
       </div>
