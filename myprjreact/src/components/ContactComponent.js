@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
-import {Control, LocalForm,Error } from 'react-redux-form'
+import {Control, LocalForm,Errors } from 'react-redux-form'
 class Contact extends Component {
   constructor(props) {
     super(props);
@@ -81,6 +81,12 @@ class Contact extends Component {
   render() {
     const { firstName, lastName, contactTel, email } = this.state;
     const err = this.validate(firstName, lastName, contactTel, email);
+    //Variable Validate
+    const required=(val)=>(val) && (val.length);
+    const maxLength=(len)=>(val)=>(!val) ||(val.length<=len);
+    const minLength=(len)=>(val)=>(val) && (val.length>=len);
+    const isNumber=(val)=>(!isNaN(Number(val)));
+    const validEmail=(val)=> /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val); 
     return (
       <div className="container">
         <div className="row">
@@ -251,29 +257,84 @@ class Contact extends Component {
                 <Control.text
                 model=".firstName" 
                   className="form-control"
-                  name="firstName"                 
+                  name="firstName"  
+                  validators={{
+                    required,
+                    minLength: minLength(3),
+                    maxLength: maxLength(15)
+                  }}               
                 />
-                <div className="invalid-feedback">{err.firstName}</div>
+               <Errors className="text-danger"
+                  model=".firstName"
+                  show="touched"
+                  messages={{
+                    required:"Required | ",
+                    minLength:"Must be greater than 2 characters | ",
+                    maxLength:"Must be 15 characters or less"
+                  }}
+               />
 
                 <label className="form-label">Last Name</label>
                 <Control.text
                   model=".lastName"
                   className="form-control"
-                  name="lastName"               
+                  name="lastName"   
+                  validators={{
+                    required,
+                    minLength: minLength(3),
+                    maxLength: maxLength(15)
+                  }}                           
                 />
-                <div className="invalid-feedback">{err.lastName}</div>
+                  <Errors className="text-danger"
+                  model=".lastName"
+                  show="touched"
+                  messages={{
+                    required:"Required | ",
+                    minLength:"Must be greater than 2 characters | ",
+                    maxLength:"Must be 15 characters or less"
+                  }}
+               />
+          
                 <label className="form-label">Contact Tel</label>
                 <Control.text
                   model=".contactTel"
                   className="form-control"
                   name="contactTel"
+                  validators={{
+                    required,
+                    minLength: minLength(3),
+                    maxLength: maxLength(15),
+                    isNumber
+                  }}     
                 />
+                 <Errors className="text-danger"
+                  model=".contactTel"
+                  show="touched"
+                  messages={{
+                    required:"Required | ",
+                    minLength:"Must be greater than 2 characters | ",
+                    maxLength:"Must be 15 characters or less | ",
+                    isNumber:"Must be a number"
+                  }}
+               />
                 <div className="invalid-feedback">{err.contactTel}</div>
                 <label className="form-label">Email</label>
                 <Control.text
                   model=".email"
                   className="form-control"
                   name="email"
+                  validators={{
+                    required,
+                    validEmail
+                  }}
+                />
+                <Errors className="text-danger"
+                  model=".email"
+                  show="touched"
+                  messages={{
+                    required:"Required | ",
+                    validEmail:"Invalid Email Address"
+                  }}
                 />
                 <div className="invalid-feedback">{err.email}</div>
               </div>
