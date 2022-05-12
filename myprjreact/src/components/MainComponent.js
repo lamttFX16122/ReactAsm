@@ -30,6 +30,7 @@ class Main extends Component {
       comments:this.props.comments,
       promotions:this.props.promotions,
       leaders:this.props.leaders
+      // about:ABOUT
     };
   }
   chooseDish = (dishID) => {
@@ -42,7 +43,7 @@ class Main extends Component {
   
   render() {
     const DishWithID=({match})=>{
-      console.log(this.state.comments.filter((comm)=>comm.dishId === parseInt(match.params.dishId))[0])
+      // console.log(this.state.comments.filter((comm)=>comm.dishId === parseInt(match.params.dishId))[0])
       return(
         <Dishdetail chooseDish={this.state.dishes.filter((dish) => dish.id === parseInt(match.params.dishId))[0]}
                     comment={this.state.comments.filter((comm)=>comm.dishId === parseInt(match.params.dishId))}
