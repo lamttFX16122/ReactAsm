@@ -1,5 +1,16 @@
 import React, { Component } from "react";
 import { Switch, Route, Redirect,withRouter } from "react-router-dom";
+import {
+ 
+  Button,
+  Modal,
+  ModalBody,
+  Label,
+  ModalHeader,
+  Form,
+  FormGroup,
+  Input,
+} from "reactstrap";
 
 import {connect} from "react-redux";
 import MenuEx from "./MenuComponentEx1";
@@ -19,7 +30,6 @@ class Main extends Component {
       comments:this.props.comments,
       promotions:this.props.promotions,
       leaders:this.props.leaders
-      // about:ABOUT
     };
   }
   chooseDish = (dishID) => {
