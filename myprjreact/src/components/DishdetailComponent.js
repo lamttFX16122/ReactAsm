@@ -35,59 +35,60 @@ class DishDetail extends Component {
   onSubmitComment=(values)=>{
     alert("Current state is: " +  JSON.stringify(values))
   }
-  
+   RenderDishDetail = ( dish ) => {
+    if (dish == null || dish == undefined) {
+      return <div className="row"></div>;
+    } else {
+      return (
+        <Card className="m-5">
+          <CardImg top src={dish.image} alt={dish.name} />
+          <CardBody>
+            <CardTitle>
+              <h4>{dish.name}</h4>
+            </CardTitle>
+            <CardText>{dish.description}</CardText>
+          </CardBody>
+        </Card>
+      );
+    }
+  };
+   RenderComment = (comm ) => {
+    if (comm == undefined || comm == null) {
+      return <div className="row"></div>;
+    } else {
+      let comment = comm.map((value) => {
+        return (
+          <CardBody key={value.id}>
+            <CardText>{value.comment}</CardText>
+            <CardText>
+              {"--" +
+                value.author +
+                ", " +
+                moment(value.date).format("MMM Do, YYYY")}
+            </CardText>
+          </CardBody>
+        );
+      });
+      return (
+        <Card className="m-5 p-3">
+          <CardTitle>
+            <h4>{"Comments"}</h4>
+          </CardTitle>
+          {comment}
+          <Button className="w-50" onClick={this.toggleComment} outline>
+                  <span className="fa-solid fa-pen fa-lg"></span> Submit Comment
+         </Button>
+        </Card>
+      );
+    }
+  };
   render() {
     const required=(val)=>(val) && (val.length);
     const maxLength=(len)=>(val)=>(!val) ||(val.length<=len);
     const minLength=(len)=>(val)=>(val) && (val.length>=len);
-    const RenderDishDetail = ({ dish }) => {
-      if (dish == null || dish == undefined) {
-        return <div className="row"></div>;
-      } else {
-        return (
-          <Card className="m-5">
-            <CardImg top src={dish.image} alt={dish.name} />
-            <CardBody>
-              <CardTitle>
-                <h4>{dish.name}</h4>
-              </CardTitle>
-              <CardText>{dish.description}</CardText>
-            </CardBody>
-          </Card>
-        );
-      }
-    };
+   
 
-    const RenderComment = ({ comm }) => {
-      if (comm == undefined || comm == null) {
-        return <div className="row"></div>;
-      } else {
-        let comment = comm.map((value) => {
-          return (
-            <CardBody key={value.id}>
-              <CardText>{value.comment}</CardText>
-              <CardText>
-                {"--" +
-                  value.author +
-                  ", " +
-                  moment(value.date).format("MMM Do, YYYY")}
-              </CardText>
-            </CardBody>
-          );
-        });
-        return (
-          <Card className="m-5 p-3">
-            <CardTitle>
-              <h4>{"Comments"}</h4>
-            </CardTitle>
-            {comment}
-            <Button className="w-50" onClick={this.toggleComment} outline>
-                    <span className="fa-solid fa-pen fa-lg"></span> Submit Comment
-           </Button>
-          </Card>
-        );
-      }
-    };
+   
     return (
       <div className="container">
         <div className="row">
@@ -103,15 +104,16 @@ class DishDetail extends Component {
         </div>
         <div className="row">
           <div className="col-lg-6 col-md-6 col-xs-12 col-sm-12">
-            <RenderDishDetail dish={this.props.chooseDish}></RenderDishDetail>
+            {/* <RenderDishDetail dish={this.props.chooseDish}></RenderDishDetail> */}
+            {this.RenderDishDetail(this.props.chooseDish)}
           </div>
           <div className="col-lg-6 col-md-6 col-xs-12 col-sm-12">
-              <RenderComment comm={this.props.comment}></RenderComment>
+              {/* <RenderComment comm={this.props.comment}></RenderComment> */}
+              {this.RenderComment(this.props.comment)}
           </div>
         </div>
         <div className="row">
           {/* Modal */}
-       
           <Modal isOpen={this.state.toggleComment} toggle={this.toggleComment}>
             <ModalHeader>Submit Comment</ModalHeader>
             <ModalBody>
@@ -121,16 +123,15 @@ class DishDetail extends Component {
                   <Control.select className="form-select"
                     aria-label="Default select example"
                     model=".rating"
-                    name="rating"
-                    
+                    name="rating"       
                   >
-                     <option value={1}>1</option> 
-                     <option value={2}>2</option> 
+                     <option value={1}>1 </option> 
+                     <option value={2}>2 </option> 
                      <option value={3}>3</option> 
                      <option value={4}>4</option> 
                      <option value={5}>5</option> 
-            
                   </Control.select>
+                 
                 </FormGroup>
                 <FormGroup>
                   <Label>Your Name</Label>
