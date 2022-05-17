@@ -20,6 +20,7 @@ import Footer from "./FooterComponent";
 import Home from "./HomeComponent";
 import Contact from "./ContactComponent";
 import About from "./AboutComponent";
+import * as action from "./../redux/ActionCreators"
 
 
 class Main extends Component {
@@ -46,7 +47,8 @@ class Main extends Component {
       // console.log(this.state.comments.filter((comm)=>comm.dishId === parseInt(match.params.dishId))[0])
       return(
         <Dishdetail chooseDish={this.state.dishes.filter((dish) => dish.id === parseInt(match.params.dishId))[0]}
-                    comment={this.state.comments.filter((comm)=>comm.dishId === parseInt(match.params.dishId))}
+                    comment={this.props.comments.filter((comm)=>comm.dishId === parseInt(match.params.dishId))}
+                    addComment={this.props.addComment}
         ></Dishdetail>
       )
     }
@@ -95,4 +97,13 @@ const mapStateToProps = state => { //Tra ve props cho component hay store
     leaders: state.leaders
   }
 }
-export default withRouter(connect(mapStateToProps)(Main));
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    
+    addComment: (dishId, rating, author, comment) => {
+      dispatch(action.AddComment(dishId, rating,author,comment));
+    }
+
+  }
+}
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Main));

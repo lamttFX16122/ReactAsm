@@ -33,7 +33,9 @@ class DishDetail extends Component {
     })
   }
   onSubmitComment=(values)=>{
+    this.props.addComment(this.props.chooseDish.id, values.rating, values.author, values.comment)
     alert("Current state is: " +  JSON.stringify(values))
+
   }
    RenderDishDetail = ( dish ) => {
     if (dish == null || dish == undefined) {
@@ -52,7 +54,7 @@ class DishDetail extends Component {
       );
     }
   };
-   RenderComment = (comm ) => {
+   RenderComment = (comm) => {
     if (comm == undefined || comm == null) {
       return <div className="row"></div>;
     } else {
@@ -87,7 +89,6 @@ class DishDetail extends Component {
     const maxLength=(len)=>(val)=>(!val) ||(val.length<=len);
     const minLength=(len)=>(val)=>(val) && (val.length>=len);
    
-
    
     return (
       <div className="container">
@@ -136,8 +137,8 @@ class DishDetail extends Component {
                 <FormGroup>
                   <Label>Your Name</Label>
                   <Control.text className="form-control"
-                    model=".yourname"
-                    name="yourname"
+                    model=".author"
+                    name="author"
                     validators={{
                       required,
                       minLength:minLength(3),
@@ -145,7 +146,7 @@ class DishDetail extends Component {
                     }}
                   />
                   <Errors className="text-danger"
-                      model=".yourname"
+                      model=".author"
                       show="touched"
                       messages={{
                         required:"Required | ",
@@ -164,39 +165,7 @@ class DishDetail extends Component {
                 </FormGroup>
                 <Button color="primary">Submit</Button>
               </LocalForm>
-              {/* <Form onSubmit={this.onSubmit}>
-                <FormGroup>
-                  <Label>Username</Label>
-                  <Input
-                    type="text"
-                    name="username"
-                    innerRef={(input) => (this.username = input)}
-                  ></Input>
-                </FormGroup>
-                <FormGroup>
-                  <Label>Password</Label>
-                  <Input
-                    type="password"
-                    name="password"
-                    innerRef={(input) => (this.password = input)}
-                  ></Input>
-                </FormGroup>
-                <FormGroup check>
-                  <Label>
-                    <Input
-                      type="checkbox"
-                      name="remember"
-                      innerRef={(input) => (this.remember = input)}
-                    ></Input>{" "}
-                    Remember me
-                  </Label>
-                </FormGroup>
-                <FormGroup className="text-right">
-                  <Button type="sumit" color="primary">
-                    Login
-                  </Button>
-                </FormGroup>
-              </Form> */}
+             
             </ModalBody>
           </Modal>
         </div>
