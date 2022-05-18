@@ -1,17 +1,5 @@
 import React, { Component } from "react";
 import { Switch, Route, Redirect,withRouter } from "react-router-dom";
-import {
- 
-  Button,
-  Modal,
-  ModalBody,
-  Label,
-  ModalHeader,
-  Form,
-  FormGroup,
-  Input,
-} from "reactstrap";
-
 import {connect} from "react-redux";
 import MenuEx from "./MenuComponentEx1";
 import Dishdetail from "./DishdetailComponent";
@@ -27,26 +15,20 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dishes: this.props.dishes,
-      comments:this.props.comments,
-      promotions:this.props.promotions,
-      leaders:this.props.leaders
-      // about:ABOUT
+  
     };
   }
-  chooseDish = (dishID) => {
-    if (dishID != null) {
-      this.setState({
-        choosedishes: dishID,
-      });
-    }
-  };
+  componentDidMount=()=>{
+    this.props.fetchDishes();
+  }
+
   
   render() {
     const DishWithID=({match})=>{
-      // console.log(this.state.comments.filter((comm)=>comm.dishId === parseInt(match.params.dishId))[0])
       return(
-        <Dishdetail chooseDish={this.state.dishes.filter((dish) => dish.id === parseInt(match.params.dishId))[0]}
+        <Dishdetail chooseDish={this.props.dishes.dishes.filter((dish) => dish.id === parseInt(match.params.dishId))[0]}
+                    isLoading={this.props.dishes.isLoading}
+                    errMes={this.props.dishes.errMes}
                     comment={this.props.comments.filter((comm)=>comm.dishId === parseInt(match.params.dishId))}
                     addComment={this.props.addComment}
         ></Dishdetail>
@@ -54,9 +36,11 @@ class Main extends Component {
     }
     const Homepage = () => {
       return(
-        <Home dish={this.state.dishes.filter((dish)=>dish.featured)[0]}
-        promotion={this.state.promotions.filter((promo)=>promo.featured)[0]}
-        leader={this.state.leaders.filter((lead)=>lead.featured)[0]}>
+        <Home dish={this.props.dishes.dishes.filter((dis)=>dis.featured)[0]}
+              dishesLoading={this.props.dishes.isLoading}
+              dishesErrMes={this.props.dishes.errMes}
+              promotion={this.props.promotions.filter((promo)=>promo.featured)[0]}
+              leader={this.props.leaders.filter((lead)=>lead.featured)[0]}>
         </Home>
       )
     };
@@ -69,14 +53,15 @@ class Main extends Component {
         <div className="container">
           <Switch>
             <Route path="/home" component={Homepage}></Route>
-            <Route path="/about" component={()=>(<About leaders={this.state.leaders}></About>)}></Route>
+            <Route path="/about" component={()=>(<About leaders={this.props.leaders}></About>)}></Route>
             <Route
               exact
               path="/menu"
               component={() => (
                 <MenuEx
-                  dishes={this.state.dishes}
-                  onReceiveDish={this.chooseDish}
+                  dishes={this.props.dishes.dishes}
+                  isLoading={this.props.dishes.isLoading}
+                  errMes={this.props.dishes.errMes}
                 ></MenuEx>
               )}></Route>
               <Route exact path="/menu/:dishId" component={DishWithID}></Route>
@@ -90,6 +75,7 @@ class Main extends Component {
   }
 }
 const mapStateToProps = state => { //Tra ve props cho component hay store
+  console.log(state.dishes.dishes)
   return {
     dishes: state.dishes,
     comments: state.comments,
@@ -97,11 +83,14 @@ const mapStateToProps = state => { //Tra ve props cho component hay store
     leaders: state.leaders
   }
 }
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch, props) => {
   return {
     
     addComment: (dishId, rating, author, comment) => {
       dispatch(action.AddComment(dishId, rating,author,comment));
+    },
+    fetchDishes: ()=>{
+      dispatch(action.fetchDishes());
     }
 
   }

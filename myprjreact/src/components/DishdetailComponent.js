@@ -19,6 +19,7 @@ import {
 } from "reactstrap";
 import {Control, LocalForm,Errors } from 'react-redux-form'
 import { Link } from "react-router-dom";
+import { Loading } from "./LoadingComponent";
 
 class DishDetail extends Component {
   constructor(props) {
@@ -89,88 +90,111 @@ class DishDetail extends Component {
     const maxLength=(len)=>(val)=>(!val) ||(val.length<=len);
     const minLength=(len)=>(val)=>(val) && (val.length>=len);
    
-   
-    return (
-      <div className="container">
-        <div className="row">
-          <Breadcrumb>
-            <BreadcrumbItem>
-              <Link to="/menu">Menu</Link>
-            </BreadcrumbItem>
-            <BreadcrumbItem active>{this.props.chooseDish.name}</BreadcrumbItem>
-          </Breadcrumb>
-          <div className="col-12">
-            <h4>Detail</h4>
+    if(this.props.isLoading)
+      {
+        return(
+          <div className="container">
+            <div className="row">
+              <Loading/>
+            </div>
           </div>
-        </div>
-        <div className="row">
-          <div className="col-lg-6 col-md-6 col-xs-12 col-sm-12">
-            {/* <RenderDishDetail dish={this.props.chooseDish}></RenderDishDetail> */}
-            {this.RenderDishDetail(this.props.chooseDish)}
+        ) 
+      }
+      else if(this.props.errMes)
+      {
+        return(
+          <div className="container">
+            <div className="row">
+              <h4>{this.props.errMes}</h4>
+            </div>
           </div>
-          <div className="col-lg-6 col-md-6 col-xs-12 col-sm-12">
-              {/* <RenderComment comm={this.props.comment}></RenderComment> */}
-              {this.RenderComment(this.props.comment)}
-          </div>
-        </div>
-        <div className="row">
-          {/* Modal */}
-          <Modal isOpen={this.state.toggleComment} toggle={this.toggleComment}>
-            <ModalHeader>Submit Comment</ModalHeader>
-            <ModalBody>
-              <LocalForm onSubmit={(values)=>{this.onSubmitComment(values)}}>
-              <FormGroup>
-                  <Label>Rating</Label>
-                  <Control.select className="form-select"
-                    aria-label="Default select example"
-                    model=".rating"
-                    name="rating"       
-                  >
-                     <option value={1}>1 </option> 
-                     <option value={2}>2 </option> 
-                     <option value={3}>3</option> 
-                     <option value={4}>4</option> 
-                     <option value={5}>5</option> 
-                  </Control.select>
+        )
+      }
+      else if(this.props.chooseDish!==null)
+      {
+        return (
+          <div className="container">
+            <div className="row">
+              <Breadcrumb>
+                <BreadcrumbItem>
+                  <Link to="/menu">Menu</Link>
+                </BreadcrumbItem>
+                <BreadcrumbItem active>{this.props.chooseDish.name}</BreadcrumbItem>
+              </Breadcrumb>
+              <div className="col-12">
+                <h4>Detail</h4>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                {/* <RenderDishDetail dish={this.props.chooseDish}></RenderDishDetail> */}
+                {this.RenderDishDetail(this.props.chooseDish)}
+              </div>
+              <div className="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                  {/* <RenderComment comm={this.props.comment}></RenderComment> */}
+                  {this.RenderComment(this.props.comment)}
+              </div>
+            </div>
+            <div className="row">
+              {/* Modal */}
+              <Modal isOpen={this.state.toggleComment} toggle={this.toggleComment}>
+                <ModalHeader>Submit Comment</ModalHeader>
+                <ModalBody>
+                  <LocalForm onSubmit={(values)=>{this.onSubmitComment(values)}}>
+                  <FormGroup>
+                      <Label>Rating</Label>
+                      <Control.select className="form-select"
+                        aria-label="Default select example"
+                        model=".rating"
+                        name="rating"       
+                      >
+                         <option value={1}>1 </option> 
+                         <option value={2}>2 </option> 
+                         <option value={3}>3</option> 
+                         <option value={4}>4</option> 
+                         <option value={5}>5</option> 
+                      </Control.select>
+                     
+                    </FormGroup>
+                    <FormGroup>
+                      <Label>Your Name</Label>
+                      <Control.text className="form-control"
+                        model=".author"
+                        name="author"
+                        validators={{
+                          required,
+                          minLength:minLength(3),
+                          maxLength:maxLength(15)
+                        }}
+                      />
+                      <Errors className="text-danger"
+                          model=".author"
+                          show="touched"
+                          messages={{
+                            required:"Required | ",
+                            minLength:"Must be greater than 2 characters | ",
+                            maxLength:"Must be 15 characters or less"
+                          }}
+                      />
+                    </FormGroup>
+                    <FormGroup>
+                      <Label>Comment</Label>
+                      <Control.textarea className="form-control"
+                        model=".comment"
+                        name="comment"
+                        rows="6"
+                      />
+                    </FormGroup>
+                    <Button color="primary">Submit</Button>
+                  </LocalForm>
                  
-                </FormGroup>
-                <FormGroup>
-                  <Label>Your Name</Label>
-                  <Control.text className="form-control"
-                    model=".author"
-                    name="author"
-                    validators={{
-                      required,
-                      minLength:minLength(3),
-                      maxLength:maxLength(15)
-                    }}
-                  />
-                  <Errors className="text-danger"
-                      model=".author"
-                      show="touched"
-                      messages={{
-                        required:"Required | ",
-                        minLength:"Must be greater than 2 characters | ",
-                        maxLength:"Must be 15 characters or less"
-                      }}
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <Label>Comment</Label>
-                  <Control.textarea className="form-control"
-                    model=".comment"
-                    name="comment"
-                    rows="6"
-                  />
-                </FormGroup>
-                <Button color="primary">Submit</Button>
-              </LocalForm>
-             
-            </ModalBody>
-          </Modal>
-        </div>
-      </div>
-    );
+                </ModalBody>
+              </Modal>
+            </div>
+          </div>
+        );
+      }
+  
   }
 }
 export default DishDetail;
