@@ -56,7 +56,6 @@ class DishDetail extends Component {
     }
   };
    RenderComment = (comm) => {
-     console.log(comm)
     if (comm === undefined || comm === null) {
       return <div className="row"></div>;
     } else {

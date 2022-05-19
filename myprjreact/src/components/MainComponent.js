@@ -82,7 +82,6 @@ class Main extends Component {
   }
 }
 const mapStateToProps = state => { //Tra ve props cho component hay store
-  console.log(state.comments.comments)
   return {
     dishes: state.dishes,
     comments: state.comments,
