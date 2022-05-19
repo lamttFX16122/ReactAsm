@@ -6,7 +6,6 @@ import {
   CardBody,
   CardHeader,
   Media,
-  CardImgOverlay,
   CardImg,
   CardTitle,
   CardText,
@@ -36,36 +35,36 @@ function About(props) {
       </div>
     );
   }
-  function RenderLeader({ leader }) {
-    return (
-      <Card className="mt-2">
-        <div className="row">
-          <div className="col-2">
-            <CardImg
-              className="m-4"
-              width="50%"
-              height="60%"
-              src={leader.image}
-              alt={leader.name}
-            />
-          </div>
-          <div className="col-10">
-            <CardBody>
-              <CardTitle>
-                <h4>{leader.name}</h4>
-              </CardTitle>
-              <CardText>
-                <p>{leader.designation}</p>
-              </CardText>
-              <CardText>
-                <p>{leader.description}</p>
-              </CardText>
-            </CardBody>
-          </div>
-        </div>
-      </Card>
-    );
-  }
+  // function RenderLeader({ leader }) {
+  //   return (
+  //     <Card className="mt-2">
+  //       <div className="row">
+  //         <div className="col-2">
+  //           <CardImg
+  //             className="m-4"
+  //             width="50%"
+  //             height="60%"
+  //             src={leader.image}
+  //             alt={leader.name}
+  //           />
+  //         </div>
+  //         <div className="col-10">
+  //           <CardBody>
+  //             <CardTitle>
+  //               <h4>{leader.name}</h4>
+  //             </CardTitle>
+  //             <CardText>
+  //               <p>{leader.designation}</p>
+  //             </CardText>
+  //             <CardText>
+  //               <p>{leader.description}</p>
+  //             </CardText>
+  //           </CardBody>
+  //         </div>
+  //       </div>
+  //     </Card>
+  //   );
+  // }s
 
   const leaders = props.leaders.map((leader) => {
     return <ReaderLeaderBootstrap key={leader.id} leader={leader}></ReaderLeaderBootstrap>;

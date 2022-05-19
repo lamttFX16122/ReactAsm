@@ -21,16 +21,20 @@ class Main extends Component {
   }
   componentDidMount=()=>{
     this.props.fetchDishes();
+    this.props.fetchComments();
+    this.props.fetchPromos();
   }
 
   
   render() {
+
     const DishWithID=({match})=>{
       return(
         <Dishdetail chooseDish={this.props.dishes.dishes.filter((dish) => dish.id === parseInt(match.params.dishId))[0]}
                     isLoading={this.props.dishes.isLoading}
                     errMes={this.props.dishes.errMes}
-                    comment={this.props.comments.filter((comm)=>comm.dishId === parseInt(match.params.dishId))}
+                    comments={this.props.comments.comments.filter((comm)=>comm.dishId === parseInt(match.params.dishId))}
+                    commentsErrMes={this.props.comments.errMes}
                     addComment={this.props.addComment}
         ></Dishdetail>
       )
@@ -40,7 +44,9 @@ class Main extends Component {
         <Home dish={this.props.dishes.dishes.filter((dis)=>dis.featured)[0]}
               dishesLoading={this.props.dishes.isLoading}
               dishesErrMes={this.props.dishes.errMes}
-              promotion={this.props.promotions.filter((promo)=>promo.featured)[0]}
+              promotions={this.props.promotions.promotions.filter((promo)=>promo.featured)[0]}
+              promosLoading={this.props.promotions.isLoading}
+              promosErrMes={this.props.promotions.errMes}
               leader={this.props.leaders.filter((lead)=>lead.featured)[0]}>
         </Home>
       )
@@ -76,7 +82,7 @@ class Main extends Component {
   }
 }
 const mapStateToProps = state => { //Tra ve props cho component hay store
-  console.log(state.dishes.dishes)
+  console.log(state.comments.comments)
   return {
     dishes: state.dishes,
     comments: state.comments,
@@ -95,8 +101,13 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     resetFeedbackForm:()=>{
       dispatch(actions.reset('feedback'))
+    },
+    fetchComments:()=>{
+      dispatch(action.fetchComments());
+    },
+    fetchPromos:()=>{
+      dispatch(action.fetchPromos());
     }
-
   }
 }
 export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Main));

@@ -4,7 +4,6 @@ import moment from "moment";
 import {
   Card,
   CardImg,
-  CardImgOverlay,
   CardText,
   CardBody,
   CardTitle,
@@ -20,6 +19,7 @@ import {
 import {Control, LocalForm,Errors } from 'react-redux-form'
 import { Link } from "react-router-dom";
 import { Loading } from "./LoadingComponent";
+import { baseUrl } from "../shared/baseUrl";
 
 class DishDetail extends Component {
   constructor(props) {
@@ -39,12 +39,12 @@ class DishDetail extends Component {
 
   }
    RenderDishDetail = ( dish ) => {
-    if (dish == null || dish == undefined) {
+    if (dish === null || dish === undefined) {
       return <div className="row"></div>;
     } else {
       return (
         <Card className="m-5">
-          <CardImg top src={dish.image} alt={dish.name} />
+          <CardImg top src={baseUrl+dish.image} alt={dish.name} />
           <CardBody>
             <CardTitle>
               <h4>{dish.name}</h4>
@@ -56,9 +56,11 @@ class DishDetail extends Component {
     }
   };
    RenderComment = (comm) => {
-    if (comm == undefined || comm == null) {
+     console.log(comm)
+    if (comm === undefined || comm === null) {
       return <div className="row"></div>;
     } else {
+      // console.log(comm)
       let comment = comm.map((value) => {
         return (
           <CardBody key={value.id}>
@@ -132,7 +134,8 @@ class DishDetail extends Component {
               </div>
               <div className="col-lg-6 col-md-6 col-xs-12 col-sm-12">
                   {/* <RenderComment comm={this.props.comment}></RenderComment> */}
-                  {this.RenderComment(this.props.comment)}
+                  {this.RenderComment(this.props.comments)}
+                  {/* {console.log(this.props.comments)} */}
               </div>
             </div>
             <div className="row">
