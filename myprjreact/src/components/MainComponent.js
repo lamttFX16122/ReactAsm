@@ -24,18 +24,18 @@ class Main extends Component {
     this.props.fetchComments();
     this.props.fetchPromos();
   }
+  
 
   
   render() {
-
     const DishWithID=({match})=>{
       return(
         <Dishdetail chooseDish={this.props.dishes.dishes.filter((dish) => dish.id === parseInt(match.params.dishId))[0]}
                     isLoading={this.props.dishes.isLoading}
                     errMes={this.props.dishes.errMes}
-                    comments={this.props.comments.comments.filter((comm)=>comm.dishId === parseInt(match.params.dishId))}
+                    comments={this.props.comments.comments.filter((comm)=>Number(comm.dishId) === parseInt(match.params.dishId))}
                     commentsErrMes={this.props.comments.errMes}
-                    addComment={this.props.addComment}
+                    postComment={this.props.postComment}
         ></Dishdetail>
       )
     }
@@ -92,9 +92,9 @@ const mapStateToProps = state => { //Tra ve props cho component hay store
 const mapDispatchToProps = (dispatch, props) => {
   return {
     
-    addComment: (dishId, rating, author, comment) => {
-      dispatch(action.AddComment(dishId, rating,author,comment));
-    },
+    // addComment: (dishId, rating, author, comment) => {
+    //   dispatch(action.AddComment(dishId, rating,author,comment));
+    // },
     fetchDishes: ()=>{
       dispatch(action.fetchDishes());
     },
@@ -106,6 +106,9 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     fetchPromos:()=>{
       dispatch(action.fetchPromos());
+    },
+    postComment:(dishId, rating, author, comment)=>{
+      dispatch(action.postComment(dishId, rating, author, comment));
     }
   }
 }

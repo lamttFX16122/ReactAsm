@@ -34,7 +34,7 @@ class DishDetail extends Component {
     })
   }
   onSubmitComment=(values)=>{
-    this.props.addComment(this.props.chooseDish.id, values.rating, values.author, values.comment)
+    this.props.postComment(this.props.chooseDish.id, values.rating, values.author, values.comment)
     alert("Current state is: " +  JSON.stringify(values))
 
   }
@@ -73,6 +73,7 @@ class DishDetail extends Component {
           </CardBody>
         );
       });
+    // console.log(comm)
       return (
         <Card className="m-5 p-3">
           <CardTitle>
@@ -84,7 +85,7 @@ class DishDetail extends Component {
          </Button>
         </Card>
       );
-    }
+     }
   };
   render() {
     const required=(val)=>(val) && (val.length);
@@ -148,7 +149,8 @@ class DishDetail extends Component {
                       <Control.select className="form-select"
                         aria-label="Default select example"
                         model=".rating"
-                        name="rating"       
+                        name="rating"  
+                        defaultValue={1}     
                       >
                          <option value={1}>1 </option> 
                          <option value={2}>2 </option> 
