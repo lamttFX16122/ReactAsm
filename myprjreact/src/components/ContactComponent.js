@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
-import {Control, LocalForm,Errors } from 'react-redux-form'
+import {Control,Form,Errors,actions } from 'react-redux-form'
 class Contact extends Component {
   constructor(props) {
     super(props);
@@ -33,6 +33,7 @@ class Contact extends Component {
     // e.preventDefault();
     console.log("Current state is: " + JSON.stringify(values));
     alert("Current state is: " + JSON.stringify(values));
+    this.props.resetFeedback();
     console.log(values)
   };
   onBlur = (field) => (e) => {
@@ -251,7 +252,7 @@ class Contact extends Component {
                 Send Feedback
               </button>
             </form> */}
-             <LocalForm onSubmit={(values)=>{this.onSubmit(values)}}>
+             <Form model="feedback" onSubmit={(values)=>{this.onSubmit(values)}}>
               <div className="mb-3">
                 <label className="form-label">First Name</label>
                 <Control.text
@@ -378,7 +379,7 @@ class Contact extends Component {
               <button type="submit" className="btn btn-primary">
                 Send Feedback
               </button>
-            </LocalForm>
+            </Form>
           </div>
         </div>
       </div>

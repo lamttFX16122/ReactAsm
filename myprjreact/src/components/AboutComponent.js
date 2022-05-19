@@ -68,7 +68,7 @@ function About(props) {
   }
 
   const leaders = props.leaders.map((leader) => {
-    return <ReaderLeaderBootstrap leader={leader}></ReaderLeaderBootstrap>;
+    return <ReaderLeaderBootstrap key={leader.id} leader={leader}></ReaderLeaderBootstrap>;
   });
 
   return (
