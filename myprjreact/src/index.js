@@ -9,10 +9,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/js/all.js';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <React.StrictMode>
-    <App />
-  // </React.StrictMode>
+    // <React.StrictMode>
+    <
+    App / >
+    // </React.StrictMode>
 );
+//  "start": "set port=4200 && react-scripts --openssl-legacy-provider start",
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
