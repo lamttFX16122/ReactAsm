@@ -6,9 +6,7 @@ import {
   CardBody,
   CardHeader,
   Media,
-  CardImg,
-  CardTitle,
-  CardText,
+
 } from "reactstrap";
 import { Link } from "react-router-dom";
 

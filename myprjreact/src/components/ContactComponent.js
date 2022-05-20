@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
-import {Control,Form,Errors,actions } from 'react-redux-form'
+import {Control,Form,Errors } from 'react-redux-form'
 class Contact extends Component {
   constructor(props) {
     super(props);
@@ -73,7 +73,7 @@ class Contact extends Component {
       err.contactTel = "Tel. Number should contain only numbers";
 
     //email
-    var regEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    var regEmail = /^[\w-\]+@([\w-]+\)+[\w-]{2,4}$/;
     if (touched.email && !regEmail.test(email))
       err.email = "Invalid email address";
     return err;
@@ -134,7 +134,7 @@ class Contact extends Component {
               >
                 <i className="fa fa-phone"></i> Call
               </a>
-              <a role="button" className="btn btn-info">
+              <a role="button" href="mailto:confusion@food.net" className="btn btn-info">
                 <i className="fa fa-skype"></i> Skype
               </a>
               <a
