@@ -10,6 +10,7 @@ import Contact from "./ContactComponent";
 import About from "./AboutComponent";
 import * as action from "./../redux/ActionCreators"
 import { actions } from "react-redux-form";
+import {TransitionGroup, CSSTransition} from "react-transition-group";
 
 
 class Main extends Component {
@@ -58,6 +59,8 @@ class Main extends Component {
         </div>
 
         <div className="container">
+          <TransitionGroup>
+            <CSSTransition key={this.props.location.key}  classNames="page" timeout={300}> 
           <Switch>
             <Route path="/home" component={Homepage}></Route>
             <Route path="/about" component={()=>(<About leaders={this.props.leaders}></About>)}></Route>
@@ -75,6 +78,8 @@ class Main extends Component {
               <Route path="/contact" component={()=><Contact resetFeedback={this.props.resetFeedbackForm}/>}></Route>
             <Redirect to="/home"></Redirect>
           </Switch>
+          </CSSTransition>
+          </TransitionGroup>
         </div>
         <Footer></Footer>
       </div>
