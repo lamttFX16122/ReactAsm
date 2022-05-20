@@ -9,6 +9,7 @@ export const Comments = (state = { errMes: null, comments: [] }, action) => {
             comment.date = new Date().toISOString();
             return {...state, comments: state.comments.concat(comment) };
         case ActionTypes.ADD_COMMENTS:
+            var comment = action.payload;
             if (Array.isArray(comment)) {
                 return {...state, errMes: null, comments: action.payload }
             } else {

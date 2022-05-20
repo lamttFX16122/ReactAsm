@@ -88,7 +88,6 @@ class DishDetail extends Component {
             
           )
       })
-      console.log(comment)
       return (
         
         <Card className="m-5 p-3">
