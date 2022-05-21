@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+
+// import { Router } from "react-router-dom";
 import "./App.css";
 import Main from "./components/MainComponent";
 import { Provider } from 'react-redux';
@@ -10,9 +11,7 @@ class App extends Component {
   render() {
     return (  
       <Provider store={store}>
-      <Router>
         <Main></Main>
-      </Router>
       </Provider>
     );
   }

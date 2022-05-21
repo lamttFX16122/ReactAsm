@@ -44,9 +44,9 @@ export const fetchDishes = () => (dispatch) => {
     dispatch(dishesLoading(true));
     return fetch(baseUrl + 'dishes')
         .then(response => {
-            if (response.ok)
-                return response
-            else {
+            if (response.ok) {
+                return response;
+            } else {
                 var err = new Error("Error" + response.status + ": " + response.statusText);
                 err.response = response;
                 throw err;
