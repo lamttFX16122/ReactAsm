@@ -8,6 +8,7 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { InitialFeedback } from './form';
 import { createForms } from 'react-redux-form';
+import { Contact } from './contact';
 
 export const ConfigureStore = () => {
     const store = createStore(combineReducers({
@@ -15,6 +16,7 @@ export const ConfigureStore = () => {
             dishes: Dishes,
             leaders: Leaders,
             promotions: Promotions,
+            contact: Contact,
             ...createForms({
                 feedback: InitialFeedback
             }),

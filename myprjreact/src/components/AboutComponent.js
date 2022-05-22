@@ -9,15 +9,19 @@ import {
 
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import { baseUrl } from "../shared/baseUrl";
+import { Fade, Stagger } from "react-animation-components";
 
 function About(props) {
   function ReaderLeaderBootstrap({ leader }) {
     return (
+      <Stagger in>
       <div className="card mb-3" max-width="540px">
         <div className="row g-0">
-          <div className="col-md-1 mt-4">
+            <Fade in>
+            <div className="col-md-1 mt-4">
             <img
-              src={leader.image}
+              src={baseUrl+leader.image}
               alt={leader.name}
               className="img-fluid rounded-start"
             />
@@ -29,8 +33,10 @@ function About(props) {
               <p className="card-text">{leader.description}</p>
             </div>
           </div>
+            </Fade>
         </div>
       </div>
+      </Stagger>
     );
   }
   // function RenderLeader({ leader }) {

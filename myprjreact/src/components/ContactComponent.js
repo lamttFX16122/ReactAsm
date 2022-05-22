@@ -32,9 +32,15 @@ class Contact extends Component {
   onSubmit = (values) => {
     // e.preventDefault();
     console.log("Current state is: " + JSON.stringify(values));
-    alert("Current state is: " + JSON.stringify(values));
+    alert("Thank you for your feedback! " + JSON.stringify(values));
+    this.props.postFeedback( values.firstName,
+      values.lastName,
+      values.contactTel,
+      values.email,
+      values.ckbContact,
+      values.sltTel,
+      values.feedBack)
     this.props.resetFeedback();
-    console.log(values)
   };
   onBlur = (field) => (e) => {
     this.setState({
