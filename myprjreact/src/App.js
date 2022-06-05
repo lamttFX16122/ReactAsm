@@ -1,9 +1,10 @@
 import "./App.css";
 import { Navbar, NavbarBrand } from "reactstrap";
 import { DISHES } from "./shared/dishes";
-import { Component } from "react";
+import React,{Component} from "react";
 import MenuEx from "./components/MenuComponentEx1";
 import Dishdetail from "./components/DishdetailComponent";
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +16,7 @@ class App extends Component {
   chooseDish = (dish) => {
     if (dish != null) {
       this.setState({
-        choosedishes:dish
+        choosedishes: dish,
       });
     }
   };
