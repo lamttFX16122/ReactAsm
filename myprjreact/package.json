@@ -27,7 +27,6 @@
         "redux-thunk": "^2.4.1",
         "web-vitals": "^2.1.4"
     },
-
     "scripts": {
         "start": "set port=4200 && react-scripts --openssl-legacy-provider start",
         "build": "react-scripts build",
