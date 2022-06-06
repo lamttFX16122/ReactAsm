@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
-import {Control, LocalForm,Error } from 'react-redux-form'
+// import {Control, LocalForm,Error } from 'react-redux-form'
+import { Control, LocalForm, Error } from "react-redux-form";
 class Contact extends Component {
   constructor(props) {
     super(props);
@@ -33,7 +34,7 @@ class Contact extends Component {
     // e.preventDefault();
     console.log("Current state is: " + JSON.stringify(values));
     alert("Current state is: " + JSON.stringify(values));
-    console.log(values)
+    console.log(values);
   };
   onBlur = (field) => (e) => {
     this.setState({
@@ -140,7 +141,7 @@ class Contact extends Component {
             </div>
           </div>
         </div>
-        {/* Form */} 
+        {/* Form */}
 
         <div className="container w-75">
           <div className="row mt-5 mb-5">
@@ -245,13 +246,17 @@ class Contact extends Component {
                 Send Feedback
               </button>
             </form> */}
-             <LocalForm onSubmit={(values)=>{this.onSubmit(values)}}>
+            <LocalForm
+              onSubmit={(values) => {
+                this.onSubmit(values);
+              }}
+            >
               <div className="mb-3">
                 <label className="form-label">First Name</label>
                 <Control.text
-                model=".firstName" 
+                  model=".firstName"
                   className="form-control"
-                  name="firstName"                 
+                  name="firstName"
                 />
                 <div className="invalid-feedback">{err.firstName}</div>
 
@@ -259,7 +264,7 @@ class Contact extends Component {
                 <Control.text
                   model=".lastName"
                   className="form-control"
-                  name="lastName"               
+                  name="lastName"
                 />
                 <div className="invalid-feedback">{err.lastName}</div>
                 <label className="form-label">Contact Tel</label>
