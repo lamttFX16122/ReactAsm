@@ -172,7 +172,7 @@ export const getOneLeader = (leader) => ({
     })
     // Feedback
 export const addFeedback = (feedback) => ({
-    type: ActionTypes.ADD_FEEDBACK,
+    type: ActionTypes.ADD_FEEDBACKS,
     payload: feedback
 })
 
